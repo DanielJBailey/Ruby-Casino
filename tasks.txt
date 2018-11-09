@@ -1,0 +1,8 @@
+player class
+
+wallet class
+
+start menu
+
+games folder
+
