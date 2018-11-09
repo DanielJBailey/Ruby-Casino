@@ -1,6 +1,5 @@
 require_relative './wallet'
 
-
 class Player < Wallet
     def initialize
         @name = nil

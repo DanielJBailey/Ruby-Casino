@@ -2,11 +2,11 @@ class Wallet
     def initialize
         @money = nil
     end
-    def increase_wallet(amt)
-        # increase wallet
+    def increase_balance(amt)
+        @money += amt
     end
 
-    def decrease_wallet(amt)
-        # decrease wallet
+    def decrease_balance(amt)
+        @money -= amt
     end
 end

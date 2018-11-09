@@ -3,14 +3,13 @@ require_relative './player'
 # require_relative './Games/roulette.rb'
 # require_relative './Games/slots.rb'
 
-
-
 class Casino < Player
     def initialize
         @games = [
-            "HighnLow",
-            "Game 2",
-            "Game 3"
+            "High/Low", 
+            "Rock, Paper, Scissors", 
+            "Roulette",
+            "Slots"
         ]
         casino_menu
     end
