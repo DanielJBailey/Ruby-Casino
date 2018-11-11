@@ -1,5 +1,6 @@
 require_relative './player'
 require_relative './Games/roulette'
+require_relative './Games/slots.rb'
 require 'sounder'
 
 Sounder::System.set_volume 50 # 0-100
@@ -42,7 +43,7 @@ class Casino < Player
         when 3
             start_roulette
         when 4
-            # Slots.new
+            start_slots
         when 5
             cashier
         when 6

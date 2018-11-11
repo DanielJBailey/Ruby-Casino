@@ -1,67 +1,127 @@
 # Chelsea
-require_relative './wallet'
-require_relative './player'
+require 'pry'
+#increase_balance 
+#decrease_balance
+#@money
+#@name
+#@ambience = Sounder::Sound.new "./Assets/ambience_casino.mp3"
 
-class Slots
-    def initialize
-        @slot_answers = ['cherry', 'grapes', 'apple',]
+    def start_slots
         slot_machine
     end
 
     def slot_machine
-        puts "#{@name}, how much would you like to bet?"
+        @slot_pics = [ 
+            { Name: 'Cherry',
+                Symbol: """
+               CHERRY
+          __.--~~.,-.__    
+          `~-._.-(`-.__`-. 
+                 |    `~~`
+            .--./ |      
+           /#   |  | .--.  
+           |    /  /#    |
+            '--'    |    / 
+                     '--'  
+        """.red },
+            { Name: 'Grapes',
+                Symbol: """
+                GRAPES
+              __ {_/
+              |_}|| _
+                 _|(_)_
+                (_)_)(_)_
+               (_)(_)_)(_)
+                (_)(_))_)
+                 (_(_(_)
+                  (_)_)
+                   (_)
+            """.magenta },
+            { Name: 'Apple',
+                Symbol: """
+                APPLE
+                 .:'
+                __ :'__
+            #  .'`__`-'__``.
+            #  :__________.-'
+            #  :_________:
+            #  :_________`-;
+            #   `.__.-.__.'
+            # """.green} ]
+
+
+        @slot_answers = ['[Cherry]', '[Grapes]', '[Apple]']
+
+        puts
+        puts "----------------------------------".light_green
+        puts
+        puts "Your current balance is $#{@money}".light_green
+        puts
+        puts "----------------------------------".light_green
+        puts 
+        puts "#{@name}, how much would you like to bet?".yellow
+        puts
         bet = gets.strip.to_i
-        Wallet.decrease_balance(bet)
+        decrease_balance(bet)
+
+        slot1 = @slot_answers.shuffle.first
+        slot2 = @slot_answers.shuffle.first
+        slot3 = @slot_answers.shuffle.first
+
+        puts "----------------------------------".cyan
+        puts
+        puts "#{slot1} - #{slot2} - #{slot3}"
+        puts
+        puts "----------------------------------".cyan
+
+        # @slot1 << @slot_answers.shuffle.first
+        # @slot2 << @slot_answers.shuffle.first
+        # @slot3 << @slot_answers.shuffle.first
+
+        # winnings = bet * winbalance(slot1, slot2, slot3)
+        # increase_balance(winnings)
+        # # puts 'Congrats, you won!!'.light_green
+        # puts
+        # quit
     end
 
-    def winbalance(cash1, cash2, cash3)
-        if 
 
-    end 
+    # def slot_answers
+    #   @slot1 = [Cherry]
+    #   @slot2 = [Grapes]
+    #   @slot3 = [Apple]
 
-    def slot_machine_answers
-        slotmachine1 = @slot_answers.shuffle.first
-        slotmachine2 = @slot_answers.shuffle.first
-        slotmachine3 = @slot_answers.shuffle.first
-        puts "#{slotmachine1} - #{slotmachine2} - #{slotmachine3}"
+    # end
 
-        winnings = bet * winbalance(slotmachine1, slotmachine2, slotmachine3)
-        puts "You have won $#{winnings}"
-        quit
+    def winbalance(slot1, slot2, slot3)
+        if slot1 = slot2 && slot2 = slot3 && slot1 = slot3
+           return 2
+           winnings = bet * winbalance(slot1, slot2, slot3)
+           increase_balance(winnings)
+           puts 'Congrats, you won!!'.light_green
+        else 0
+           puts 'You lose!'.light_green
+        end
     end
     
-    def quit
-         puts "Balance: #{@money}"
-        puts "Would you like to continue? "
-    end
+    # def quit
+    #     puts "Your new balance is: $#{@money}".light_green
+    #     puts
+    #     puts "Would you like to play again? y or n".yellow
+    #     puts
+    #     selection == gets.strip.downcase
+    #     if selection == 'y'
+    #        slot_machine
+    #     else 
+    #        another_option
+    #     end
+    # end
 
-
-
-end
-
-#  puts  '__.--~~.,-.__    '
-#  puts  '`~-._.-(`-.__`-. '
-#  puts  '        \    `~~`'
-#  puts  '   .--./ \       '
-#  puts  '  /#   \  \.--.  '
-#  puts  '  \    /  /#   \ '
-#  puts  '   '--'   \    / '
-#  puts  '           '--'  '
-  
-#         .:'
-#  puts    __ :'__
-#  puts .'`__`-'__``.
-#  puts :__________.-'
-#  puts :_________:
-#  puts :_________`-;
-#  puts  `.__.-.__.'
-
-# puts __ {_/
-# puts \_}\\ _
-# puts    _\(_)_
-# puts   (_)_)(_)_
-# puts  (_)(_)_)(_)
-# puts   (_)(_))_)
-# puts    (_(_(_)
-# puts     (_)_)
-# puts      (_)
+    # def another_option
+    #     puts 'Would you like to play a different game? y or no'.yellow
+    #     if selection == 'y'
+    #        casino_menu
+    #     else 
+    #        leave_casino
+    #     end
+    # end
