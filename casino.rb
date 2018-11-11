@@ -3,7 +3,7 @@ require_relative './wallet'
 require 'sounder'
 # require 'pry'
 # require_relative './Games/rockpaperscissors.rb'
-# require_relative './Games/roulette.rb'
+require_relative './Games/roulette.rb'
 # require_relative './Games/slots.rb'
 
 
@@ -43,6 +43,7 @@ class Casino < Player
         handle_user_choice(choice)
     end 
 
+    # Method to handle users choice in menu
     def handle_user_choice(choice)
         case choice
         when 1
@@ -50,7 +51,7 @@ class Casino < Player
         when 2
             # Rock, Paper, Scissors
         when 3
-            # Roulette
+            Roulette.new
         when 4
             # Slots
         when 5
@@ -64,7 +65,7 @@ class Casino < Player
         end
     end
 
-    # Function to quit game
+    # Method to quit game
     def leave_casino 
         puts
         puts "Thanks for playing. We hope you had a great time!".yellow
@@ -73,6 +74,7 @@ class Casino < Player
         exit(0)
     end
 
+    # Cashier to View Balance, Deposit, and Withdraw Money
     def cashier
         puts """
         ██████╗ █████╗ ███████╗██╗  ██╗██╗███████╗██████╗ 
@@ -133,8 +135,15 @@ class Casino < Player
             puts
             puts
             cashier
+        when 4
+            puts
+            puts "Returning to main lobby...".yellow
+            puts
+            casino_menu
         else
-            #something
+            puts
+            puts "Invalid option, if you are having trouble with numbers, we should send you to the cashier to deposit more money :) .".yellow
+            cashier
         end
     end
 end
