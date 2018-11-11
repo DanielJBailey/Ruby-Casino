@@ -1,10 +1,8 @@
-require_relative '../wallet.rb'
+require_relative '../casino.rb'
 
-class Roulette
+class Roulette < Casino
     def initialize
-        puts @wallet
+        puts instance_variables
+        puts view_balance
     end
 end
-
-
-# Having issue with the "global" wallet. Can't seem to access its values throughout the program even when I require relative

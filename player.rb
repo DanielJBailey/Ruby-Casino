@@ -4,14 +4,14 @@ require 'colorize'
 # require 'pry'
 
 class Player < Wallet
-    
+
+    attr_accessor :name
     def initialize
         super()
         @name = nil
         # Welcome.new
         get_user_info
     end
-    attr_reader :name
 
     def get_user_info
         puts
@@ -31,7 +31,6 @@ class Player < Wallet
             puts
             puts "Hello #{@name}!, how much can you afford to lose today? (Max: $1,000)".yellow
             get_money
-            Casino.new(@name, @money)
         else 
             puts "Surely that can't be your name...".yellow
             puts

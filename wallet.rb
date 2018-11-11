@@ -1,16 +1,16 @@
 require 'pry'
 
 class Wallet
-    attr_accessor :money
     # Initialize Wallet On Creation
     def initialize
         @money = 0
-        # binding.pry
+        binding.pry
     end
+    attr_accessor :money
 
     def view_balance
         # binding.pry
-        return @money
+        @money
     end
 
     # Increase Wallet Balance Method

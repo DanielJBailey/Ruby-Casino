@@ -1,24 +1,14 @@
 require_relative './player'
-require_relative './wallet'
+require_relative '../Casino/Games/roulette.rb'
 require 'sounder'
-# require 'pry'
-# require_relative './Games/rockpaperscissors.rb'
-require_relative './Games/roulette.rb'
-# require_relative './Games/slots.rb'
-
 
 Sounder::System.set_volume 50 # 0-100
-
 @ambience = Sounder::Sound.new "./Assets/ambience_casino.mp3"
 # @ambience.play
 
-
-
 class Casino < Player
-    attr_accessor :name, :money
-    def initialize(name, money)
-        @name = name
-        @money = money
+    def initialize
+        super()
         @menu = [
             "High / Low", 
             "Rock, Paper, Scissors", 
@@ -28,7 +18,6 @@ class Casino < Player
             "Exit Casino"
         ]
         casino_menu
-        
     end
     
     def casino_menu
@@ -47,13 +36,13 @@ class Casino < Player
     def handle_user_choice(choice)
         case choice
         when 1
-            # High / Low
+            # HighLow.new
         when 2
-            # Rock, Paper, Scissors
+            # RockPaperScissors.new
         when 3
-            Roulette.new
+            # Roulette.new <-- uninitialized constant Casino::Roulette (NameError)
         when 4
-            # Slots
+            # Slots.new
         when 5
             cashier
         when 6
@@ -148,4 +137,4 @@ class Casino < Player
     end
 end
 
-x = Player.new
+game = Casino.new
