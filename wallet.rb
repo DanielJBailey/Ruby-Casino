@@ -4,7 +4,7 @@ class Wallet
     # Initialize Wallet On Creation
     def initialize
         @money = 0
-        binding.pry
+        # binding.pry
     end
     attr_accessor :money
 

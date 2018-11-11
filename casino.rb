@@ -1,5 +1,5 @@
 require_relative './player'
-require_relative '../Casino/Games/roulette.rb'
+require_relative './Games/roulette'
 require 'sounder'
 
 Sounder::System.set_volume 50 # 0-100
@@ -40,7 +40,7 @@ class Casino < Player
         when 2
             # RockPaperScissors.new
         when 3
-            # Roulette.new <-- uninitialized constant Casino::Roulette (NameError)
+            start_roulette
         when 4
             # Slots.new
         when 5
