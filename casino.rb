@@ -4,7 +4,7 @@ require 'sounder'
 
 Sounder::System.set_volume 50 # 0-100
 @ambience = Sounder::Sound.new "./Assets/ambience_casino.mp3"
-# @ambience.play
+@ambience.play
 
 class Casino < Player
     def initialize
@@ -21,7 +21,6 @@ class Casino < Player
     end
     
     def casino_menu
-        puts
         puts "Please choose one of the followings options.(1-#{@menu.length})".yellow       
         puts
         @menu.each_with_index do |game, index|
@@ -65,16 +64,14 @@ class Casino < Player
 
     # Cashier to View Balance, Deposit, and Withdraw Money
     def cashier
-        puts """
-        ██████╗ █████╗ ███████╗██╗  ██╗██╗███████╗██████╗ 
-        ██╔════╝██╔══██╗██╔════╝██║  ██║██║██╔════╝██╔══██╗
-        ██║     ███████║███████╗███████║██║█████╗  ██████╔╝
-        ██║     ██╔══██║╚════██║██╔══██║██║██╔══╝  ██╔══██╗
-        ╚██████╗██║  ██║███████║██║  ██║██║███████╗██║  ██║
-         ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚═╝  ╚═╝
-        """.light_green
+        cashier_logo
         puts
         puts "Hello, how may I help you?".yellow
+        print_cashier_menu
+    end
+
+    # Print cashier menu to the screen
+    def print_cashier_menu
         puts
         puts "1) View Balance".yellow
         puts "2) Withdraw & Leave".yellow
@@ -82,6 +79,10 @@ class Casino < Player
         puts "4) Return to Lobby".yellow
         puts
         choice = gets.strip.to_i
+        handle_cashier_choice(choice)
+    end
+
+    def handle_cashier_choice(choice)
         case choice
         when 1
             puts
@@ -91,7 +92,7 @@ class Casino < Player
             puts
             puts "----------------------------------".light_green
             puts
-            cashier
+            print_cashier_menu
         when 2
             puts "Are you sure you would like to withdraw? (y/n)".yellow
             choice = gets.strip.to_s
@@ -106,7 +107,7 @@ class Casino < Player
                 leave_casino
             else
                 puts "Ok returning to menu".yellow
-                cashier
+                print_cashier_menu
             end
         when 3
             puts "----------------------------------".light_green
@@ -123,7 +124,7 @@ class Casino < Player
             puts "Your new balance is $#{@money}".yellow
             puts
             puts
-            cashier
+            print_cashier_menu
         when 4
             puts
             puts "Returning to main lobby...".yellow
@@ -131,10 +132,31 @@ class Casino < Player
             casino_menu
         else
             puts
-            puts "Invalid option, if you are having trouble with numbers, we should send you to the cashier to deposit more money :) .".yellow
-            cashier
+            puts "Invalid option, please choose options: 1 - 4.".yellow
+            print_cashier_menu
         end
     end
+
+    # Method to slow print cashier logo
+    def cashier_logo
+        cashier = [
+        puts,
+        puts,
+        "    ██████╗ █████╗ ███████╗██╗  ██╗██╗███████╗██████╗  ".light_green,
+        "    ██╔════╝██╔══██╗██╔════╝██║  ██║██║██╔════╝██╔══██╗".light_green,
+        "    ██║     ███████║███████╗███████║██║█████╗  ██████╔╝".light_green,
+        "    ██║     ██╔══██║╚════██║██╔══██║██║██╔══╝  ██╔══██╗".light_green,
+        "    ╚██████╗██║  ██║███████║██║  ██║██║███████╗██║  ██║".light_green,
+        "     ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚═╝  ╚═╝".light_green,
+        puts,
+        puts
+        ]
+        cashier.each do |line|
+            sleep(0.1) #Alter this number to slow or speed up line printing (in seconds)
+            puts line
+        end
+    end
+
 end
 
 game = Casino.new
