@@ -1,6 +1,7 @@
 require_relative './player'
 require_relative './Games/roulette'
 require_relative './Games/slots.rb'
+require_relative './Games/highnlow.rb'
 require 'sounder'
 
 Sounder::System.set_volume 50 # 0-100
@@ -36,7 +37,7 @@ class Casino < Player
     def handle_user_choice(choice)
         case choice
         when 1
-            # HighLow.new
+            start_highnlow
         when 2
             # RockPaperScissors.new
         when 3
