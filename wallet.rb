@@ -1,8 +1,17 @@
+require 'pry'
+
 class Wallet
+    
     # Initialize Wallet On Creation
     def initialize
-        @money = nil
+        @money = 0
     end
+
+    def view_balance
+        binding.pry
+        return @money
+    end
+
     # Increase Wallet Balance Method
     def increase_balance(amt)
         @money += amt

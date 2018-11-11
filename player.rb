@@ -1,15 +1,17 @@
 require_relative './wallet'
 require_relative './welcome'
 require 'colorize'
-# require 'rainbow/refinement'
+# require 'pry'
 
 class Player < Wallet
+    
     def initialize
-        @name = nil
         super()
-        # Welcome.new for now comment out for
+        @name = nil
+        # Welcome.new
         get_user_info
     end
+    attr_reader :name
 
     def get_user_info
         puts
@@ -29,7 +31,7 @@ class Player < Wallet
             puts
             puts "Hello #{@name}!, how much can you afford to lose today? (Max: $1,000)".yellow
             get_money
-            casino = Casino.new
+            Casino.new(@name, @money)
         else 
             puts "Surely that can't be your name...".yellow
             puts
@@ -40,7 +42,7 @@ class Player < Wallet
 
     def get_money
         puts
-        @money = gets.to_i
+        @money = gets.strip.to_i
         if @money > 1000 
             puts
             puts "Sorry, we can only get away with stealing no more than $1,000 from you, let's try again...".yellow
@@ -48,10 +50,9 @@ class Player < Wallet
         elsif @money < 0
             puts "Did you think we were going to give you money?".yellow
             puts
-            puts "Let's try again"
+            puts "Let's try again".yellow
             get_money
         else
-            @money = sprintf('%.2f', @money)
             puts
             puts "Great! We have loaded your account with $#{@money}. Good Luck #{@name}!".light_green
             puts

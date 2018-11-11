@@ -32,17 +32,20 @@ class Welcome
         puts
         puts
         puts
+        # While loop that acts like a scroll down
         x = 15
         while x > 0
             sleep(0.1)
             puts
             x -= 1
         end
+        # Print out each line of the welcome sign
         @welcome_sign.each do | line | 
             sleep (0.1) 
             puts line.light_green
         end
         puts
+        # Print out each line of the dpl casino banner
         @dpl_casino.each do | line |
             sleep(0.1)
             puts line.magenta
