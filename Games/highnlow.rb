@@ -63,7 +63,7 @@ def highnlow_menu
         check_wallet_balance
     else 
         puts
-        puts "You can only enter 1 or 2 you idiot".yellow
+        puts "You can only enter 1, 2 or 3 you idiot".yellow
         puts
         highnlow_menu
     end
@@ -170,7 +170,7 @@ def higher_guess
     player_card
     if @dealer_card < @your_card
         @winnings = @bet * 2
-        puts "Ugh...You won... You made: $#{@winnings}!".green
+        puts "Ugh...You won... You made: $#{@winnings - @bet}!".green
         increase_balance(@winnings)
     else
         puts "Ha-Ha! You lost. I took: $#{@bet} from you".blue
@@ -184,7 +184,7 @@ def lower_guess
     player_card
     if @dealer_card > @your_card
         @winnings = @bet * 2
-        puts "Ugh...You won... You made: $#{@winnings}! ".green
+        puts "Ugh...You won... You made: $#{@winnings - @bet}! ".green
         increase_balance(@winnings)
     else
     puts "Ha-Ha! You lost. I took: $#{@bet} from you".blue
