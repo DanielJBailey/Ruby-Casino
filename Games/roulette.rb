@@ -165,9 +165,89 @@ def handle_betting_menu_choice(choice)
             @bet_array << [choice, amount_to_bet]
             spin
         end
-
+    # 1 thru 12
+    when 6
+        puts
+        puts "You are placing a numbers 1 thru 12 only bet.".yellow
+        puts
+        puts "How much would you like to bet?\n".yellow
+        amount_to_bet = gets.strip.to_i
+        if @money - amount_to_bet < 0
+            puts "\nSorry, you only have $#{@money} in your account. Please deposit more money.\n".yellow
+            cashier
+        else
+            puts
+            puts "Great, you have placed one bet on numbers 1 thru 12 for $#{amount_to_bet}.\n".light_green
+            @bet_array << [choice, amount_to_bet]
+            spin
+        end
+    # 13 thru 24
+    when 7
+        puts
+        puts "You are placing a numbers 13 thru 24 only bet.".yellow
+        puts
+        puts "How much would you like to bet?\n".yellow
+        amount_to_bet = gets.strip.to_i
+        if @money - amount_to_bet < 0
+            puts "\nSorry, you only have $#{@money} in your account. Please deposit more money.\n".yellow
+            cashier
+        else
+            puts
+            puts "Great, you have placed one bet on numbers 13 thru 24 for $#{amount_to_bet}.\n".light_green
+            @bet_array << [choice, amount_to_bet]
+            spin
+        end
+    # 25 thru 36
+    when 8
+        puts
+        puts "You are placing a numbers 25 thru 36 only bet.".yellow
+        puts
+        puts "How much would you like to bet?\n".yellow
+        amount_to_bet = gets.strip.to_i
+        if @money - amount_to_bet < 0
+            puts "\nSorry, you only have $#{@money} in your account. Please deposit more money.\n".yellow
+            cashier
+        else
+            puts
+            puts "Great, you have placed one bet on numbers 25 thru 36 for $#{amount_to_bet}.\n".light_green
+            @bet_array << [choice, amount_to_bet]
+            spin
+        end
+    # 1 thru 18
+    when 9
+        puts
+        puts "You are placing a numbers 1 thru 18 only bet.".yellow
+        puts
+        puts "How much would you like to bet?\n".yellow
+        amount_to_bet = gets.strip.to_i
+        if @money - amount_to_bet < 0
+            puts "\nSorry, you only have $#{@money} in your account. Please deposit more money.\n".yellow
+            cashier
+        else
+            puts
+            puts "Great, you have placed one bet on numbers 1 thru 18 for $#{amount_to_bet}.\n".light_green
+            @bet_array << [choice, amount_to_bet]
+            spin
+        end
+    # 19 thru 36
+    when 10
+        puts
+        puts "You are placing a numbers 19 thru 36 only bet.".yellow
+        puts
+        puts "How much would you like to bet?\n".yellow
+        amount_to_bet = gets.strip.to_i
+        if @money - amount_to_bet < 0
+            puts "\nSorry, you only have $#{@money} in your account. Please deposit more money.\n".yellow
+            cashier
+        else
+            puts
+            puts "Great, you have placed one bet on numbers 19 thru 36 for $#{amount_to_bet}.\n".light_green
+            @bet_array << [choice, amount_to_bet]
+            spin
+        end
     else
         puts "That's not a valid option"
+        betting_menu
     end
 end
 
@@ -201,91 +281,168 @@ def calculate_results
 
     user_bet_type = @bet_array[0][0]
     case user_bet_type
-        when 1
-            if @round_result == @bet_array[0][1]
-                @cheer.play
-                winning_odds = @odds[user_bet_type - 1]
-                winnings = winning_odds * @bet_array[0].last
-                increase_balance(winnings)
-                puts
-                puts "You just WON $#{winnings}!!".light_green
-                puts
-                replay
-            else
-                decrease_balance(@bet_array[0].last)
-                puts "Oh nooo... you just lost your bet of $#{@bet_array[0].last}!".red
-                @gasp.play
-                replay
-            end
-        when 2
-            if @round_result_even_or_odd == 'Even'
-                @cheer.play
-                winning_odds = @odds[user_bet_type - 1]
-                winnings = winning_odds * @bet_array[0].last
-                increase_balance(winnings)
-                puts
-                puts "You just WON $#{winnings}!!".light_green
-                puts
-                replay
-            else
-                decrease_balance(@bet_array[0].last)
-                puts "Oh nooo... you just lost your bet of $#{@bet_array[0].last}!".red
-                @gasp.play
-                replay
-            end
-        when 3
-            if @round_result_even_or_odd == 'Odd'
-                @cheer.play
-                winning_odds = @odds[user_bet_type - 1]
-                winnings = winning_odds * @bet_array[0].last
-                increase_balance(winnings)
-                puts
-                puts "You just WON $#{winnings}!!".light_green
-                puts
-                replay
-            else
-                decrease_balance(@bet_array[0].last)
-                puts "Oh nooo... you just lost your bet of $#{@bet_array[0].last}!".red
-                @gasp.play
-                replay
-            end
-        when 4
-            if @round_result_color == 'Red'
-                @cheer.play
-                winning_odds = @odds[user_bet_type - 1]
-                winnings = winning_odds * @bet_array[0].last
-                increase_balance(winnings)
-                puts
-                puts "You just WON $#{winnings}!!".light_green
-                puts
-                replay
-            else
-                decrease_balance(@bet_array[0].last)
-                puts "Oh nooo... you just lost your bet of $#{@bet_array[0].last}!".red
-                @gasp.play
-                replay
-            end
-        when 5
-            if @round_result_color == 'Black'
-                @cheer.play
-                winning_odds = @odds[user_bet_type - 1]
-                winnings = winning_odds * @bet_array[0].last
-                increase_balance(winnings)
-                puts
-                puts "You just WON $#{winnings}!!".light_green
-                puts
-                replay
-            else
-                decrease_balance(@bet_array[0].last)
-                puts "Oh nooo... you just lost your bet of $#{@bet_array[0].last}!".red
-                @gasp.play
-                replay
-            end
-        when 6
-        when 7
-        when 8
-        when 9
-        when 10
+    when 1
+        if @round_result == @bet_array[0][1]
+            @cheer.play
+            winning_odds = @odds[user_bet_type - 1]
+            winnings = winning_odds * @bet_array[0].last
+            increase_balance(winnings)
+            puts
+            puts "You just WON $#{winnings}!!".light_green
+            puts
+            replay
+        else
+            decrease_balance(@bet_array[0].last)
+            puts "Oh nooo... you just lost your bet of $#{@bet_array[0].last}!".red
+            @gasp.play
+            replay
+        end
+    when 2
+        if @round_result_even_or_odd == 'Even'
+            @cheer.play
+            winning_odds = @odds[user_bet_type - 1]
+            winnings = winning_odds * @bet_array[0].last
+            increase_balance(winnings)
+            puts
+            puts "You just WON $#{winnings}!!".light_green
+            puts
+            replay
+        else
+            decrease_balance(@bet_array[0].last)
+            puts "Oh nooo... you just lost your bet of $#{@bet_array[0].last}!".red
+            @gasp.play
+            replay
+        end
+    when 3
+        if @round_result_even_or_odd == 'Odd'
+            @cheer.play
+            winning_odds = @odds[user_bet_type - 1]
+            winnings = winning_odds * @bet_array[0].last
+            increase_balance(winnings)
+            puts
+            puts "You just WON $#{winnings}!!".light_green
+            puts
+            replay
+        else
+            decrease_balance(@bet_array[0].last)
+            puts "Oh nooo... you just lost your bet of $#{@bet_array[0].last}!".red
+            @gasp.play
+            replay
+        end
+    when 4
+        if @round_result_color == 'Red'
+            @cheer.play
+            winning_odds = @odds[user_bet_type - 1]
+            winnings = winning_odds * @bet_array[0].last
+            increase_balance(winnings)
+            puts
+            puts "You just WON $#{winnings}!!".light_green
+            puts
+            replay
+        else
+            decrease_balance(@bet_array[0].last)
+            puts "Oh nooo... you just lost your bet of $#{@bet_array[0].last}!".red
+            @gasp.play
+            replay
+        end
+    when 5
+        if @round_result_color == 'Black'
+            @cheer.play
+            winning_odds = @odds[user_bet_type - 1]
+            winnings = winning_odds * @bet_array[0].last
+            increase_balance(winnings)
+            puts
+            puts "You just WON $#{winnings}!!".light_green
+            puts
+            replay
+        else
+            decrease_balance(@bet_array[0].last)
+            puts "Oh nooo... you just lost your bet of $#{@bet_array[0].last}!".red
+            @gasp.play
+            replay
+        end
+    when 6
+        if @round_result.between?(1,12)
+            @cheer.play
+            winning_odds = @odds[user_bet_type - 1]
+            winnings = winning_odds * @bet_array[0].last
+            increase_balance(winnings)
+            puts
+            puts "You just WON $#{winnings}!!".light_green
+            puts
+            replay
+        else
+            decrease_balance(@bet_array[0].last)
+            puts "Oh nooo... you just lost your bet of $#{@bet_array[0].last}!".red
+            @gasp.play
+            replay
+        end
+    when 7
+        if @round_result.between?(13,24)
+            @cheer.play
+            winning_odds = @odds[user_bet_type - 1]
+            winnings = winning_odds * @bet_array[0].last
+            increase_balance(winnings)
+            puts
+            puts "You just WON $#{winnings}!!".light_green
+            puts
+            replay
+        else
+            decrease_balance(@bet_array[0].last)
+            puts "Oh nooo... you just lost your bet of $#{@bet_array[0].last}!".red
+            @gasp.play
+            replay
+        end
+    when 8
+        if @round_result.between?(25,36)
+            @cheer.play
+            winning_odds = @odds[user_bet_type - 1]
+            winnings = winning_odds * @bet_array[0].last
+            increase_balance(winnings)
+            puts
+            puts "You just WON $#{winnings}!!".light_green
+            puts
+            replay
+        else
+            decrease_balance(@bet_array[0].last)
+            puts "Oh nooo... you just lost your bet of $#{@bet_array[0].last}!".red
+            @gasp.play
+            replay
+        end
+    when 9
+        if @round_result.between?(1,18)
+            @cheer.play
+            winning_odds = @odds[user_bet_type - 1]
+            winnings = winning_odds * @bet_array[0].last
+            increase_balance(winnings)
+            puts
+            puts "You just WON $#{winnings}!!".light_green
+            puts
+            replay
+        else
+            decrease_balance(@bet_array[0].last)
+            puts "Oh nooo... you just lost your bet of $#{@bet_array[0].last}!".red
+            @gasp.play
+            replay
+        end
+    when 10
+        if @round_result.between?(19,36)
+            @cheer.play
+            winning_odds = @odds[user_bet_type - 1]
+            winnings = winning_odds * @bet_array[0].last
+            increase_balance(winnings)
+            puts
+            puts "You just WON $#{winnings}!!".light_green
+            puts
+            replay
+        else
+            decrease_balance(@bet_array[0].last)
+            puts "Oh nooo... you just lost your bet of $#{@bet_array[0].last}!".red
+            @gasp.play
+            replay
+        end
+    else
+        puts "Something went wrong... Sorry :(".yellow
     end
 end
 
