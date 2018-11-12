@@ -1,8 +1,9 @@
 def start_roulette
-    check_balance
+    puts "made it"
+    check_starting_balance
 end
 
-def check_balance
+def check_starting_balance
     if @money == 0
         puts
         puts "Sorry, you don't have enough money to play Roulette!".yellow
