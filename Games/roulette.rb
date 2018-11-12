@@ -14,6 +14,9 @@
 
 
 def start_roulette
+    @start = Sounder::Sound.new "./Assets/roulette_intro.mp3"
+    @spin = Sounder::Sound.new "./Assets/roulette_spin.mp3"
+    @start.play
     check_starting_balance
 end
 
@@ -45,6 +48,20 @@ def setup_game
     @board = Array(1..36)
     @bet_array = []
     @round_result = nil
+    @odds = [
+        35,
+        1,
+        1,
+        1,
+        1,
+        35,
+        35,
+        2,
+        2,
+        2,
+        1,
+        1
+    ]
     roulette_logo
     betting_menu
 end
@@ -77,19 +94,27 @@ end
 def handle_betting_menu_choice(choice)
     case choice
     when 1
-        puts "You are placing a Straight Up bet, which number would you like to bet on?\n".yellow
+        puts
+        puts "You are placing a Straight Up bet, which number would you like to bet on? (1-36)\n".yellow
         straight_up_bet = gets.strip.to_i
-        puts "How much would you like to bet?\n".yellow
-        amount_to_bet = gets.strip.to_i
-        if @money - amount_to_bet < 0
-            puts "\nSorry, you only have $#{@money} in your account. Please come back later when you have the money.\n".yellow
+        if !straight_up_bet.between?(1,36)
+            puts
+            puts "That's not a valid option. Only 1 thru 36 on Straight Up bets!\n".red
             betting_menu
         else
-            puts "Great, you have placed one bet on #{straight_up_bet} for $#{amount_to_bet}.\n".light_green
-            decrease_balance(amount_to_bet)
-            puts "Your remaining balance is $#{@money}.\n".light_green
-            @bet_array << [choice, straight_up_bet, amount_to_bet]
-            spin
+            puts "How much would you like to bet?\n".yellow
+            amount_to_bet = gets.strip.to_i
+            if @money - amount_to_bet < 0
+                puts "\nSorry, you only have $#{@money} in your account. Please come back later when you have the money.\n".yellow
+                betting_menu
+            else
+                puts "Great, you have placed one bet on #{straight_up_bet} for $#{amount_to_bet}.\n".light_green
+                decrease_balance(amount_to_bet)
+                puts "Your remaining balance is $#{@money}.\n".light_green
+                @bet_array << [choice, straight_up_bet, amount_to_bet]
+                print @bet_array
+                spin
+            end
         end
     else
         puts "That's not a valid option"
@@ -97,7 +122,21 @@ def handle_betting_menu_choice(choice)
 end
 
 def spin
-    puts "\n Here we go!...".yellow
+    puts
+    puts "Here we go!...\n".yellow
+    @spin.play
+    sleep(1)
+    puts "Bets closed, ball on the move...\n".yellow
+    @round_result = @board.sample
+    sleep(3)
+    puts "The result is...\n".yellow
+    sleep(5)
+    puts "--------------------------".magenta
+    puts
+    puts "#{@round_result}!".magenta
+    puts
+    puts "--------------------------\n".magenta
+
 end
 
 def roulette_logo
