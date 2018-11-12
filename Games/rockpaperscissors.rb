@@ -18,6 +18,8 @@ require 'colorize'
 #@name
 def start_rps
   if @money > 0
+    # Print logo
+    logo
     startgame
   else puts "You can't afford to play, get out of the casino!"
     casino_menu
@@ -25,34 +27,28 @@ def start_rps
 end
 
 def startgame
-  puts "
-     ██▀███   ▒█████   ▄████▄   ██ ▄█▀    ██▓███   ▄▄▄       ██▓███  ▓█████  ██▀███       ██████  ▄████▄   ██▓  ██████   ██████  ▒█████   ██▀███    ██████ 
-    ▓██ ▒ ██▒▒██▒  ██▒▒██▀ ▀█   ██▄█▒    ▓██░  ██▒▒████▄    ▓██░  ██▒▓█   ▀ ▓██ ▒ ██▒   ▒██    ▒ ▒██▀ ▀█  ▓██▒▒██    ▒ ▒██    ▒ ▒██▒  ██▒▓██ ▒ ██▒▒██    ▒ 
-    ▓██ ░▄█ ▒▒██░  ██▒▒▓█    ▄ ▓███▄░    ▓██░ ██▓▒▒██  ▀█▄  ▓██░ ██▓▒▒███   ▓██ ░▄█ ▒   ░ ▓██▄   ▒▓█    ▄ ▒██▒░ ▓██▄   ░ ▓██▄   ▒██░  ██▒▓██ ░▄█ ▒░ ▓██▄   
-    ▒██▀▀█▄  ▒██   ██░▒▓▓▄ ▄██▒▓██ █▄    ▒██▄█▓▒ ▒░██▄▄▄▄██ ▒██▄█▓▒ ▒▒▓█  ▄ ▒██▀▀█▄       ▒   ██▒▒▓▓▄ ▄██▒░██░  ▒   ██▒  ▒   ██▒▒██   ██░▒██▀▀█▄    ▒   ██▒
-    ░██▓ ▒██▒░ ████▓▒░▒ ▓███▀ ░▒██▒ █▄   ▒██▒ ░  ░ ▓█   ▓██▒▒██▒ ░  ░░▒████▒░██▓ ▒██▒   ▒██████▒▒▒ ▓███▀ ░░██░▒██████▒▒▒██████▒▒░ ████▓▒░░██▓ ▒██▒▒██████▒▒
-    ░ ▒▓ ░▒▓░░ ▒░▒░▒░ ░ ░▒ ▒  ░▒ ▒▒ ▓▒   ▒▓▒░ ░  ░ ▒▒   ▓▒█░▒▓▒░ ░  ░░░ ▒░ ░░ ▒▓ ░▒▓░   ▒ ▒▓▒ ▒ ░░ ░▒ ▒  ░░▓  ▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░░ ▒░▒░▒░ ░ ▒▓ ░▒▓░▒ ▒▓▒ ▒ ░
-      ░▒ ░ ▒░  ░ ▒ ▒░   ░  ▒   ░ ░▒ ▒░   ░▒ ░       ▒   ▒▒ ░░▒ ░      ░ ░  ░  ░▒ ░ ▒░   ░ ░▒  ░ ░  ░  ▒    ▒ ░░ ░▒  ░ ░░ ░▒  ░ ░  ░ ▒ ▒░   ░▒ ░ ▒░░ ░▒  ░ ░
-      ░░   ░ ░ ░ ░ ▒  ░        ░ ░░ ░    ░░         ░   ▒   ░░          ░     ░░   ░    ░  ░  ░  ░         ▒ ░░  ░  ░  ░  ░  ░  ░ ░ ░ ▒    ░░   ░ ░  ░  ░  
-       ░         ░ ░  ░ ░      ░  ░                     ░  ░            ░  ░   ░              ░  ░ ░       ░        ░        ░      ░ ░     ░           ░  
-                      ░                                                                          ░                                                         
-  ".magenta
-  
   puts "How much would you like to bet?".yellow
-
-  @player_bet = gets.to_i
+  @player_bet = gets.strip.to_i
   if @player_bet == 0
     puts "Give us more money".yellow
     startgame
+  elsif @money - @player_bet < 0
+      puts "You only have $#{@money} left, please deposit more money".light_green
+      puts "Would you like to visit the cashier? (y/n)".yellow
+      response = gets.strip.downcase.to_s
+        if response == 'y'
+          puts
+          puts "Sending you to the cashier...".yellow
+          cashier
+        else
+          puts "Please only bet what you can afford."
+          puts
+          startgame
+        end
   else
     puts "You've bet $#{@player_bet}".light_green
     decrease_balance(@player_bet)
-    if @player_bet > @money
-      puts "You only have $#{@money} left".light_green
-      startgame
-    else
-      game
-    end
+    game
   end
 end
 
@@ -142,5 +138,21 @@ def play_again
     puts "Goodbye! hope to see you again!".magenta
     casino_menu
   end
+end
+
+
+def logo
+  puts "
+  ██▀███   ▒█████   ▄████▄   ██ ▄█▀    ██▓███   ▄▄▄       ██▓███  ▓█████  ██▀███       ██████  ▄████▄   ██▓  ██████   ██████  ▒█████   ██▀███    ██████ 
+ ▓██ ▒ ██▒▒██▒  ██▒▒██▀ ▀█   ██▄█▒    ▓██░  ██▒▒████▄    ▓██░  ██▒▓█   ▀ ▓██ ▒ ██▒   ▒██    ▒ ▒██▀ ▀█  ▓██▒▒██    ▒ ▒██    ▒ ▒██▒  ██▒▓██ ▒ ██▒▒██    ▒ 
+ ▓██ ░▄█ ▒▒██░  ██▒▒▓█    ▄ ▓███▄░    ▓██░ ██▓▒▒██  ▀█▄  ▓██░ ██▓▒▒███   ▓██ ░▄█ ▒   ░ ▓██▄   ▒▓█    ▄ ▒██▒░ ▓██▄   ░ ▓██▄   ▒██░  ██▒▓██ ░▄█ ▒░ ▓██▄   
+ ▒██▀▀█▄  ▒██   ██░▒▓▓▄ ▄██▒▓██ █▄    ▒██▄█▓▒ ▒░██▄▄▄▄██ ▒██▄█▓▒ ▒▒▓█  ▄ ▒██▀▀█▄       ▒   ██▒▒▓▓▄ ▄██▒░██░  ▒   ██▒  ▒   ██▒▒██   ██░▒██▀▀█▄    ▒   ██▒
+ ░██▓ ▒██▒░ ████▓▒░▒ ▓███▀ ░▒██▒ █▄   ▒██▒ ░  ░ ▓█   ▓██▒▒██▒ ░  ░░▒████▒░██▓ ▒██▒   ▒██████▒▒▒ ▓███▀ ░░██░▒██████▒▒▒██████▒▒░ ████▓▒░░██▓ ▒██▒▒██████▒▒
+ ░ ▒▓ ░▒▓░░ ▒░▒░▒░ ░ ░▒ ▒  ░▒ ▒▒ ▓▒   ▒▓▒░ ░  ░ ▒▒   ▓▒█░▒▓▒░ ░  ░░░ ▒░ ░░ ▒▓ ░▒▓░   ▒ ▒▓▒ ▒ ░░ ░▒ ▒  ░░▓  ▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░░ ▒░▒░▒░ ░ ▒▓ ░▒▓░▒ ▒▓▒ ▒ ░
+   ░▒ ░ ▒░  ░ ▒ ▒░   ░  ▒   ░ ░▒ ▒░   ░▒ ░       ▒   ▒▒ ░░▒ ░      ░ ░  ░  ░▒ ░ ▒░   ░ ░▒  ░ ░  ░  ▒    ▒ ░░ ░▒  ░ ░░ ░▒  ░ ░  ░ ▒ ▒░   ░▒ ░ ▒░░ ░▒  ░ ░
+   ░░   ░ ░ ░ ░ ▒  ░        ░ ░░ ░    ░░         ░   ▒   ░░          ░     ░░   ░    ░  ░  ░  ░         ▒ ░░  ░  ░  ░  ░  ░  ░ ░ ░ ▒    ░░   ░ ░  ░  ░  
+    ░         ░ ░  ░ ░      ░  ░                     ░  ░            ░  ░   ░              ░  ░ ░       ░        ░        ░      ░ ░     ░           ░  
+                   ░                                                                          ░                                                         
+".magenta
 end
 
