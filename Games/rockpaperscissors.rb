@@ -21,31 +21,41 @@ def start_rps
     # Print logo
     logo
     startgame
-  else puts "You can't afford to play, get out of the casino!"
+  else puts "You can't afford to play, get out of the casino!".yellow
     casino_menu
   end
 end
 
 def startgame
+  puts "Welcome to Rock, Paper, Scissors!".yellow
+  puts
   puts "How much would you like to bet?".yellow
+  puts
   @player_bet = gets.strip.to_i
   if @player_bet == 0
+    puts
     puts "Give us more money".yellow
+    puts
     startgame
   elsif @money - @player_bet < 0
+    puts
       puts "You only have $#{@money} left, please deposit more money".light_green
+      puts
       puts "Would you like to visit the cashier? (y/n)".yellow
+      puts
       response = gets.strip.downcase.to_s
         if response == 'y'
           puts
           puts "Sending you to the cashier...".yellow
           cashier
         else
-          puts "Please only bet what you can afford."
+          puts
+          puts "Please only bet what you can afford.".yellow
           puts
           startgame
         end
   else
+    puts
     puts "You've bet $#{@player_bet}".light_green
     decrease_balance(@player_bet)
     game
@@ -54,11 +64,12 @@ end
 
 def game
   compchoice = ["ROCK", "PAPER", "SCISSORS"].sample
-  #1=rock
-  #2=paper
-  #3=scissors
-  
-  puts "What would you like to play as?\n1)ROCK\n2)PAPER\n3)SCISSORS".yellow
+  # 1 = rock
+  # 2 = paper
+  # 3 = scissors
+  puts
+  puts "What would you like to play as?\n1) ROCK\n2) PAPER\n3) SCISSORS".yellow
+  puts
   choice = gets.to_i
   case choice
   when 1

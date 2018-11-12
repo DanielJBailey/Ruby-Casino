@@ -120,14 +120,21 @@ class Casino < Player
             puts "How much would you like to add?".yellow
             puts
             amount_to_add = gets.to_i
-            puts
-            increase_balance(amount_to_add)
-            puts "Adding $#{amount_to_add} to your account...".yellow
-            puts
-            puts "Your new balance is $#{@money}".yellow
-            puts
-            puts
-            print_cashier_menu
+            if amount_to_add + @money > 1000
+                puts
+                puts "Sorry we can't let you deposit more than the allowed $1000".yellow
+                puts "Going back to main menu...".yellow
+                print_cashier_menu
+            else
+                puts
+                increase_balance(amount_to_add)
+                puts "Adding $#{amount_to_add} to your account...".yellow
+                puts
+                puts "Your new balance is $#{@money}".yellow
+                puts
+                puts
+                print_cashier_menu
+            end
         when 4
             puts
             puts "Returning to main lobby...".yellow
