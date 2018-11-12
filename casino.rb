@@ -1,7 +1,11 @@
 require_relative './player'
 require_relative './Games/roulette'
+<<<<<<< Updated upstream
 require_relative './Games/slots.rb'
 require_relative './Games/highnlow.rb'
+=======
+require_relative './Games/rockpaperscissors'
+>>>>>>> Stashed changes
 require 'sounder'
 
 Sounder::System.set_volume 50 # 0-100
@@ -39,7 +43,7 @@ class Casino < Player
         when 1
             start_highnlow
         when 2
-            # RockPaperScissors.new
+            start_rps
         when 3
             start_roulette
         when 4

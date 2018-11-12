@@ -27,7 +27,7 @@ class Player < Wallet
     def get_name
         @name = gets.strip.to_s
         # if name doesn't include atleast 3 letters, FAIL
-        if @name.match?(/[A-Za-z]{3,}/) 
+        if @name.match(/[A-Za-z]{3,}/) 
             puts
             puts "Hello #{@name}!, how much can you afford to lose today? (Max: $1,000)".yellow
             get_money
