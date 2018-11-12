@@ -1,11 +1,7 @@
 require_relative './player'
 require_relative './Games/roulette'
-<<<<<<< Updated upstream
 require_relative './Games/slots.rb'
 require_relative './Games/highnlow.rb'
-=======
-require_relative './Games/rockpaperscissors'
->>>>>>> Stashed changes
 require 'sounder'
 
 Sounder::System.set_volume 50 # 0-100
