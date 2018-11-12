@@ -42,7 +42,8 @@ end
 
     
 def start_game
-    puts "Welcome #{@name}, are you ready to play High n Low? \n".yellow
+    logo
+    puts "Welcome #{@name}, to High n' Low! \n".yellow
     highnlow_menu
 end
 
@@ -173,7 +174,7 @@ def higher_guess
         puts "Ugh...You won... You made: $#{@winnings - @bet}!".green
         increase_balance(@winnings)
     else
-        puts "Ha-Ha! You lost. I took: $#{@bet} from you".blue
+        puts "Ha-Ha! You lost. I took: $#{@bet} from you".black
         puts
         sleep(1.0)
     end
@@ -187,7 +188,7 @@ def lower_guess
         puts "Ugh...You won... You made: $#{@winnings - @bet}! ".green
         increase_balance(@winnings)
     else
-    puts "Ha-Ha! You lost. I took: $#{@bet} from you".blue
+    puts "Ha-Ha! You lost. I took: $#{@bet} from you".black
     puts
     sleep(1.0)
     end
@@ -199,6 +200,16 @@ def return_to_main_menu
     casino_menu
 end
     
+
+def logo
+    puts "    ██╗  ██╗██╗ ██████╗ ██╗  ██╗    ███╗   ██╗    ██╗      ██████╗ ██╗    ██╗ ".red
+    puts "    ██║  ██║██║██╔════╝ ██║  ██║    ████╗  ██║    ██║     ██╔═══██╗██║    ██║ ".black
+    puts "    ███████║██║██║  ███╗███████║    ██╔██╗ ██║    ██║     ██║   ██║██║ █╗ ██║ ".red
+    puts "    ██╔══██║██║██║   ██║██╔══██║    ██║╚██╗██║    ██║     ██║   ██║██║███╗██║ ".black
+    puts "    ██║  ██║██║╚██████╔╝██║  ██║    ██║ ╚████║    ███████╗╚██████╔╝╚███╔███╔╝ ".red
+    puts "    ╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═╝  ╚═╝    ╚═╝  ╚═══╝    ╚══════╝ ╚═════╝  ╚══╝╚══╝  ".black
+    puts "                                                                              ".red
+end
     
 
 
