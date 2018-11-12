@@ -1,10 +1,17 @@
 # Harlan
-# require_relative './wallet'
-# require_relative './player'
+# require 'sounder'
 
 # Sounder::System.set_volume 50 # 0-100
-# @ambience = Sounder::Sound.new "./Assets/ambience_casino.mp3"
-# @ambience.play
+# @shuffle_sound = Sounder::Sound.new "./Assets/shuffling_cards.mp3"
+# @shuffle_sound.play
+
+# increase_balance 
+# decrease_balance
+# @money
+# @name
+
+
+
 
 def start_highnlow
     check_balance
@@ -33,133 +40,164 @@ def check_balance
     end 
 end
 
-#how to check balance
     
-    def start_game
-        puts "Welcome , are you ready to play High n Low? \n"
+def start_game
+    puts "Welcome #{@name}, are you ready to play High n Low? \n".yellow
+    highnlow_menu
+end
+
+def highnlow_menu
+    puts "Would you like to:".yellow
+    puts 
+    puts "1) Play a game?".yellow
+    puts "2) Return to main menu".yellow 
+    puts "3) Check Balance".yellow
+    puts
+    user_choice = gets.to_i
+    case user_choice
+    when 1
+        how_much_to_bet
+    when 2
+        return_to_main_menu
+    when 3
+        check_wallet_balance
+    else 
         puts
-        #menu to play or to quit
+        puts "You can only enter 1 or 2 you idiot".yellow
+        puts
         highnlow_menu
     end
+end 
 
-    def highnlow_menu
-        #need an option to check balance
-        puts
-        puts "Would you like to:"
-        puts 
-        puts "(1 Play a game?"
-        puts "(2 Return to main menu" 
-        puts
-        user_choice = gets.to_i
-        case user_choice
-        when 1
-           how_much_to_bet
-        when 2
-            return_to_main_menu
-            #somehow link back to Casino?
-        else 
-            puts
-            puts "You can only enter 1 or 2 you idiot"
-            puts
-            highnlow_menu
-        end
-    end 
+def check_wallet_balance
+    puts "--------------------------------------".light_green
+    puts
+    puts "Your current balance is : $#{@money}".light_green
+    puts 
+    puts "--------------------------------------".light_green
+    highnlow_menu
+end
 
-    
-    def how_much_to_bet
-        #ask how much money they have
-        puts "How much would you like to bet?"
-        bet = gets.strip.to_i
-        puts bet
-        play_game
-        # if bet == 0 
-        #     puts
-        #     puts 'Invalid number idiot'
-        #     puts
-        #     how_much_to_bet
-        # elsif
-        #     # You can use the is_a? method
-        #     #example : https://stackoverflow.com/questions/4589968/checking-if-a-variable-is-an-integer
-        #     # >> 1.is_a? Integer
-        #     # => true
-        #     # >> "dadadad@asdasd.net".is_a? Integer
-        #     # => false
-        #     # >>
-        #     #^^
-        #     #how can i put that if someone puts anything but an integer, it doesn't work?
-        #     puts
-        #     puts 'Invalid number idiot'
-        #     puts
-        #     how_much_to_bet
-        # end
-    end
-    
-    def play_game
-        first_card_dealer
-        puts "Would you like to guess: "
-        puts 
-        #ask if high or low
-        puts "(1 Higher?"
-        puts "Or"
-        puts "(2 Lower?"
-        higher_or_lower_guess = gets.to_i
-        case higher_or_lower_guess
-            #user puts high or low
-        when 1
-            puts "You guessed Higher."
-            puts "Lets see if you won or lost..."
-            puts
-            higher_guess
-        when 2
-            puts "You guessed Lower."
-            puts "Lets see if you won or lost..."
-            puts
-            lower_guess
+def how_much_to_bet
+    #ask how much money they have
+    puts "How much $$$ would you like to bet?".red
+    @bet = gets.strip.to_i
+    puts
+    if @bet > @money
+        puts
+        puts "Math is hard kiddo... try again."
+        puts
+        puts "Do you want to deposit more money? y/n "
+        response = gets.downcase.strip.to_s
+        if response == 'y'
+            cashier
         else
-            puts
-            puts "You have to guess higher or lower... This isn't that hard, come on."
-            puts
-            play_game
+            how_much_to_bet
         end
-        #user either loses or wins on presented card
-        #user makes or loses money in wallet
+    else
+        decrease_balance(@bet)
+        play_game
     end
-    
-    def first_card_dealer
-        puts "The card is : "
-        
-        #what shows first
-        #then user decides if higher or lower
-    end
+end
 
-    def final_card_dealer
-        #the winning decision if the guess is wrong or right.
-    end
+def play_game
+    @dealer_cards = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+]
+    first_card_dealer
     
-    def higher_guess
-        #what happens when they choose higher
-        #what happens when they win
-        puts "Ugh...You won... You made: $ "
-        #what happens when they lose
-        puts "Ha-Ha! You lost. I stole :   from you"
-        #return
-        highnlow_menu
+    puts "Would you like to guess: ".yellow
+    puts 
+    #ask if high or low
+    puts "1) Higher?".red
+    puts "Or".yellow
+    puts "2) Lower?".red
+    higher_or_lower_guess = gets.to_i
+    case higher_or_lower_guess
+        #user puts high or low
+    when 1
+        puts "You guessed Higher.".yellow
+        puts
+        puts "Lets see if you won or lost...".yellow
+        puts
+        sleep(2.0)
+        higher_guess
+    when 2
+        puts "You guessed Lower.".yellow
+        puts
+        puts "Lets see if you won or lost...".yellow
+        puts
+        sleep(2.0)
+        lower_guess
+    else
+        puts
+        puts "You have to guess higher or lower... This isn't that hard, come on.".yellow
+        puts
+        play_game
     end
-    
-    def lower_guess 
-        #what happens when they choose lower
-        #what happens when they win
-        puts "Ugh...You won... You made: $ "
-        #what happens when they lose
-        puts "Ha-Ha! You lost. I stole :   from you"
-        #return
-        highnlow_menu
+    # user either loses or wins on presented card
+    # user makes or loses money in wallet
+end
+
+def first_card_dealer
+    @dealer_card = @dealer_cards.shuffle.sample
+    puts "Dealers card is : #{@dealer_card}".yellow
+    sleep(1.0)
+    #what shows first
+    #then user decides if higher or lower
+end
+
+def player_card
+    @your_card = @dealer_cards.shuffle.sample
+    puts "Your card was : #{@your_card}".yellow
+    sleep(1.0)
+end
+
+def higher_guess
+    player_card
+    if @dealer_card < @your_card
+        @winnings = @bet * 2
+        puts "Ugh...You won... You made: $#{@winnings}!".green
+        increase_balance(@winnings)
+    else
+        puts "Ha-Ha! You lost. I took: $#{@bet} from you".blue
+        puts
+        sleep(1.0)
     end
+    highnlow_menu
+end
+
+def lower_guess 
+    player_card
+    if @dealer_card > @your_card
+        @winnings = @bet * 2
+        puts "Ugh...You won... You made: $#{@winnings}! ".green
+        increase_balance(@winnings)
+    else
+    puts "Ha-Ha! You lost. I took: $#{@bet} from you".blue
+    puts
+    sleep(1.0)
+    end
+    highnlow_menu
+end
 
 
-    def return_to_main_menu
-        # Casino.casino_menu
-    end
+def return_to_main_menu
+    casino_menu
+end
     
     
 
@@ -176,11 +214,11 @@ end
 #     # Gets called when you call the new method to create an instance
 #     # card = Card.new('10', 'K', 'Black')
 #     def initialize(rank, suit, color)
-#       @rank = rank
-#       @suit = suit
-#       @color = color
+#       Hash.new({@rank => rank,
+#       @suit => suit,
+#       @color => color})
 #     end
-#    end
+# end
 
 # class Deck
 #     # Getter and Setter methods for rank, suit and color
@@ -192,6 +230,7 @@ end
 #       @ranks = %w(A 2 3 4 5 6 7 8 9 10 J Q K)
 #       @suits = %w(Spades Diamonds Clubs Hearts)
 #       @cards = []
+#       @base_deck = []
 #       generate_deck
 #     end
    
@@ -207,11 +246,21 @@ end
 #           @cards << Card.new(@ranks[i], suit, color)
 #         end
 #       end
+#       @base_deck = @cards
 #     end
    
-#      def display_cards
-#        @cards.shuffle.each do |card|
-#          puts "#{card.rank} #{card.suit} (#{card.color})"
-#        end
-#      end
-#    end
+#     def display_cards
+#         @cards.shuffle.each do |card|
+#             puts "#{card.rank} #{card.suit} (#{card.color})"
+#         end
+#     end
+
+#     def generate_dealer_card
+#         dealer_card = @cards.shuffle.sample
+#         puts dealer_card
+#     end
+
+#     def generate_player_card
+    
+#     end
+# end

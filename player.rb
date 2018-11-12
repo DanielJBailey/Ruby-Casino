@@ -9,7 +9,7 @@ class Player < Wallet
     def initialize
         super()
         @name = nil
-        Welcome.new
+        # Welcome.new
         get_user_info
     end
 
