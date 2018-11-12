@@ -1,5 +1,19 @@
+# Betting Options
+# EVEN
+# ODD
+# 1-12
+# 13 - 24
+# 25 - 36
+# RED
+# BLACK
+# 1 - 18
+# 19 - 36
+# 0
+# 00
+
+
+
 def start_roulette
-    puts "made it"
     check_starting_balance
 end
 
@@ -22,6 +36,79 @@ def check_starting_balance
         end
     else
         puts
-        puts "Welcome to Roulette!".yellow
+        puts "Welcome to Roulette #{@name}!".yellow
+        setup_game
     end 
+end
+
+def setup_game
+    @board = Array(1..36)
+    @bet_array = []
+    @round_result = nil
+    roulette_logo
+    betting_menu
+end
+
+def betting_menu
+    puts "----------------------------------".light_green
+    puts
+    puts "Your current balance is $#{@money}".light_green
+    puts
+    puts "----------------------------------\n".light_green
+    puts "Please choose one of the following bets: (1-12)".yellow
+    puts
+    puts "1)    Straight Up (35:1)".yellow
+    puts "2)    Even Numbers (1:1)".yellow
+    puts "3)    Odd Numbers (1:1)".yellow
+    puts "4)    Red (1:1)".yellow
+    puts "5)    Black (1:1)".yellow
+    puts "6)    Zero (35:1)".yellow
+    puts "7)    Double Zero (35:1)".yellow
+    puts "8)    1 thru 12 (2:1)".yellow
+    puts "9)    13 thru 24 (2:1)".yellow
+    puts "10)   25 thru 36 (2:1)".yellow
+    puts "11)   1 thru 18 (1:1)".yellow
+    puts "12)   19 thru 36 (1:1)".yellow
+    puts
+    roulette_bet = gets.to_i
+    handle_betting_menu_choice(roulette_bet)
+end
+
+def handle_betting_menu_choice(choice)
+    case choice
+    when 1
+        puts "You are placing a Straight Up bet, which number would you like to bet on?\n".yellow
+        straight_up_bet = gets.strip.to_i
+        puts "How much would you like to bet?\n".yellow
+        amount_to_bet = gets.strip.to_i
+        if @money - amount_to_bet < 0
+            puts "\nSorry, you only have $#{@money} in your account. Please come back later when you have the money.\n".yellow
+            betting_menu
+        else
+            puts "Great, you have placed one bet on #{straight_up_bet} for $#{amount_to_bet}.\n".light_green
+            decrease_balance(amount_to_bet)
+            puts "Your remaining balance is $#{@money}.\n".light_green
+            @bet_array << [choice, straight_up_bet, amount_to_bet]
+            spin
+        end
+    else
+        puts "That's not a valid option"
+    end
+end
+
+def spin
+    puts "\n Here we go!...".yellow
+end
+
+def roulette_logo
+    puts '''
+     ______    _______  __   __  ___      _______  _______  _______  _______ 
+    |    _ |  |       ||  | |  ||   |    |       ||       ||       ||       |
+    |   | ||  |   _   ||  | |  ||   |    |    ___||_     _||_     _||    ___|
+    |   |_||_ |  | |  ||  |_|  ||   |    |   |___   |   |    |   |  |   |___ 
+    |    __  ||  |_|  ||       ||   |___ |    ___|  |   |    |   |  |    ___|
+    |   |  | ||       ||       ||       ||   |___   |   |    |   |  |   |___ 
+    |___|  |_||_______||_______||_______||_______|  |___|    |___|  |_______|
+    
+  '''.magenta
 end

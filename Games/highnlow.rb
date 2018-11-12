@@ -1,19 +1,10 @@
 # Harlan
-# require 'sounder'
-
-# Sounder::System.set_volume 50 # 0-100
-# @shuffle_sound = Sounder::Sound.new "./Assets/shuffling_cards.mp3"
-# @shuffle_sound.play
-
-# increase_balance 
-# decrease_balance
-# @money
-# @name
-
-
-
+require 'sounder'
 
 def start_highnlow
+    Sounder::System.set_volume 50 # 0-100
+    @gasp = Sounder::Sound.new "./Assets/gasp.mp3"
+    @cheer = Sounder::Sound.new "./Assets/cheer.mp3"
     check_balance
 end
 
@@ -153,8 +144,26 @@ def play_game
 end
 
 def first_card_dealer
+    @dealer_card_to_show = nil
     @dealer_card = @dealer_cards.shuffle.sample
-    puts "Dealers card is : #{@dealer_card}".yellow
+    case @dealer_card
+    when 14
+        @dealer_card_to_show = 'A'
+        @gasp.play
+    when 13
+        @dealer_card_to_show = 'K'
+        @gasp.play
+    when 12
+        @dealer_card_to_show = 'Q'
+        @gasp.play
+    when 11
+        @dealer_card_to_show = 'J'
+        @gasp.play
+    when 10, 9, 8, 7, 6, 5, 4, 3, 2
+        @dealer_card_to_show = @dealer_card
+        sound = nil
+    end
+    puts "Dealers card is : #{@dealer_card_to_show}".yellow
     sleep(1.0)
     #what shows first
     #then user decides if higher or lower
@@ -162,6 +171,19 @@ end
 
 def player_card
     @your_card = @dealer_cards.shuffle.sample
+    @your_card_to_show = nil
+    case @your_card
+    when 14
+        @your_card_to_show = 'A'
+    when 13
+        @your_card_to_show = 'K'
+    when 12
+        @your_card_to_show = 'Q'
+    when 11 
+        @your_card_to_show = 'J'
+    when 10, 9, 8, 7, 6, 5, 4, 3, 2
+        @your_card_to_show = @your_card
+    end
     puts "Your card was : #{@your_card}".yellow
     sleep(1.0)
 end
@@ -169,6 +191,7 @@ end
 def higher_guess
     player_card
     if @dealer_card < @your_card
+        @cheer.play
         @winnings = @bet * 2
         puts "Ugh...You won... You made: $#{@winnings - @bet}!".green
         increase_balance(@winnings)
@@ -183,6 +206,7 @@ end
 def lower_guess 
     player_card
     if @dealer_card > @your_card
+        @cheer.play
         @winnings = @bet * 2
         puts "Ugh...You won... You made: $#{@winnings - @bet}! ".green
         increase_balance(@winnings)

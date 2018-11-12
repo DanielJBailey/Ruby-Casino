@@ -7,7 +7,7 @@ require 'sounder'
 
 Sounder::System.set_volume 50 # 0-100
 @ambience = Sounder::Sound.new "./Assets/ambience_casino.mp3"
-@ambience.play
+# @ambience.play
 
 class Casino < Player
     def initialize
