@@ -81,7 +81,7 @@
         puts
         puts "Do you want to deposit more money? (y/n)".yellow
         deposit = gets.downcase.strip.to_s
-            if response == 'y'
+            if deposit == 'y'
                 cashier
             else
                 slot_bet
