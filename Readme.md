@@ -26,4 +26,6 @@ Maris Herrera - [MarisLizeteHerrera](https://github.com/MarisLizeteHerrera)<br/>
 
 # To Get Started
 Navigate to our home directory in terminal and run
+```bundle install```
+Then run..
 ```ruby casino.rb```

@@ -27,33 +27,30 @@ def start_rps
 end
 
 def startgame
-  puts "Welcome to Rock, Paper, Scissors!".yellow
-  puts
-  puts "How much would you like to bet?".yellow
-  puts
+  puts "Welcome to Rock, Paper, Scissors!\n".magenta
+  puts "How much would you like to bet?\n".yellow
+
   @player_bet = gets.strip.to_i
   if @player_bet == 0
-    puts
-    puts "Give us more money".yellow
-    puts
+    puts "\nGive us more money\n".yellow
     startgame
   elsif @money - @player_bet < 0
-    puts
-      puts "You only have $#{@money} left, please deposit more money".light_green
-      puts
-      puts "Would you like to visit the cashier? (y/n)".yellow
-      puts
-      response = gets.strip.downcase.to_s
-        if response == 'y'
-          puts
-          puts "Sending you to the cashier...".yellow
-          cashier
-        else
-          puts
-          puts "Please only bet what you can afford.".yellow
-          puts
-          startgame
-        end
+    puts "\nYou only have $#{@money} left, please deposit more money\n".light_green
+    puts "Would you like to visit the cashier?\n1) YES\n2) NO\n".yellow
+
+    response = gets.strip.to_i
+    case response
+    when 1
+      puts "\nSending you to the cashier...\n".yellow
+      cashier
+    when 2
+      puts "\nPlease only bet what you can afford.\n".yellow
+      startgame
+    else
+      puts "\nInvalid input.\n".red
+      startgame
+    end
+
   else
     puts
     puts "You've bet $#{@player_bet}".light_green
@@ -68,7 +65,7 @@ def game
   # 2 = paper
   # 3 = scissors
   puts
-  puts "What would you like to play as?\n1) ROCK\n2) PAPER\n3) SCISSORS".yellow
+  puts "What would you like to play as?\n1) ROCK\n2) PAPER\n3) SCISSORS\n".yellow
   puts
   choice = gets.to_i
   case choice
@@ -133,21 +130,23 @@ def game
     end
 
   else
-    puts "Invalid Input"
+    puts "\nInvalid Input\n".red
     startgame
   end
 end
   
 def play_again
-  puts "would you like to play again?\n1)YES\n2)NO".yellow
+  puts "\nwould you like to play again?\n1) YES\n2) NO\n".yellow
   yn = gets.to_i
   case yn
   when 1
-    puts "Play again!".magenta
+    puts "\nPlay again!\n".magenta
     start_rps
   when 2
-    puts "Goodbye! hope to see you again!".magenta
+    puts "\nGoodbye! hope to see you again!\n".magenta
     casino_menu
+  else
+    puts "\nInvalid input.\n".red
   end
 end
 

@@ -24,6 +24,7 @@ class Casino < Player
     end
     
     def casino_menu
+        puts
         puts "Please choose one of the followings options.(1-#{@menu.length})".yellow       
         puts
         @menu.each_with_index do |game, index|
